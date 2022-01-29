@@ -1,7 +1,6 @@
 #include <iostream>
-#include <string>
 #include <algorithm>
-#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -15,11 +14,11 @@ int main(){
 	init();
 	int n;
 	cin>>n;
-	unordered_multiset<int> ums;
+	unordered_map<int,int> um;
 	for(int i=0;i<n;i++){
-		int a;
+		int a,cnt;
 		cin>>a;
-		ums.insert(a);
+		um[a]++;
 	}
 
 	int m;
@@ -27,7 +26,7 @@ int main(){
 	for(int i=0;i<m;i++){
 		int a;
 		cin>>a;
-		cout<<ums.count(a)<<" ";
+		cout<<um[a]<<" ";
 	}
 
 	return 0;
