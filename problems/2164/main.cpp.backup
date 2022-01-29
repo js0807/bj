@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+	int i=0;
+	string n;
+	cin>>n;
+	int t=stoi(n)-1;
+	for(i=t;i>=1;i--){
+		n.push_back((char)(i+48));
+	}
+	while(true){
+		char tmp;
+		string s_tmp;
+
+		n.pop_back();
+		if(n.size()==1) break;
+		tmp=n.back();
+		s_tmp+=tmp;
+		n.insert(0,s_tmp);
+		n.pop_back();
+	}
+	cout<<n<<endl;
+
+	return 0;
+}

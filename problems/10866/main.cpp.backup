@@ -1,0 +1,146 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+class Node{
+public:
+	int data;
+	Node* prev;
+	Node* next;
+};
+
+void init(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+
+void push_back(Node** head, int key){
+	Node* node = new Node();
+	Node* temp = *head;
+
+	node->data=key;
+	node->next=NULL;
+
+	if(*head==NULL){
+		*head=node;
+		return;
+	}
+	
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	
+	node->prev=temp;
+	temp->next=node;
+
+	delete(temp);
+}
+
+void push_front(Node** head, int key){
+	Node* node = new Node();
+	
+	node->data=key;
+	node->next=*head;
+
+	if(*head!=NULL){
+		(*head)->prev=node;
+	}
+
+	*head=node;
+}
+
+int pop_back(Node** head){
+	if(*head==NULL) return -1;
+	
+	Node* temp = *head;
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+
+	int data=temp->data;
+	temp->prev->next=NULL;
+	return data;
+}
+
+int pop_front(Node** head){
+	if(*head==NULL) return -1;
+
+	Node* temp = *head;
+	int data=temp->data;
+
+	*head=temp->next;
+	
+	return data;
+}
+
+void printList(Node* head){
+	Node* temp = head;
+	while(temp!=NULL){
+		cout<<temp->data<<" <-> ";
+		temp=temp->next;
+	}
+}
+
+int main(){
+	init();
+	int n,size=0;
+	Node* head = NULL;
+	cin>>n;
+
+	for(int i=0;i<n;i++){
+		string s;
+		cin>>s;
+
+		int a;
+		//push_back
+		if(s[0]=='p' && s[1]=='u' && s[5]=='b'){
+			cin>>a;
+			push_back(&head,a);
+			size++;
+		}
+
+		//push_front
+		if(s[0]=='p' && s[1]=='u' && s[5]=='f'){
+			cin>>a;
+			push_front(&head,a);
+			size++;
+		}
+		
+		//pop_back
+		if(s[0]=='p' && s[1]=='o' && s[4]=='b'){
+			cout<<pop_back(&head)<<endl;
+			size--;
+		}
+
+		//pop_front
+		if(s[0]=='p' && s[1]=='o' && s[4]=='f'){
+			cout<<pop_front(&head)<<endl;
+			size--;
+		}
+
+		if(s=="size"){
+			cout<<size<<endl;
+		}
+
+		if(s=="empty"){
+			if(size==0) cout<<"1\n";
+			else cout<<"0\n";
+		}
+
+		if(s=="front"){
+
+		}
+
+		if(s=="back"){
+
+		}
+		cout<<i+1<<" list : \n";
+		printList(head);
+		cout<<endl;
+	}
+
+	return 0;
+}

@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+	int i,size,n;
+	cin>>n;
+	int *a = new int[n+1];
+	size=n;
+	for(i=0;i<n;i++){
+		a[i]=i+1;	
+	}
+	
+	int head=0,tail=0;
+	while(size>1){
+		//pop
+		if(head==n) head=0;
+		head++;
+		size--;
+		//if(size==1) break;
+		//push
+		a[tail]=a[head];
+		if(tail==n) tail=0;
+		tail++;
+		size++;
+		//pop
+		if(head==n) head=0;
+		head++;
+		size--;
+		//if(size==1) break;
+	}
+	cout<<a[head]<<endl;
+	return 0;
+}

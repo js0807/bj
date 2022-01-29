@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+void init(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+}
+
+int main(){
+	init();
+	int n,i,j,k;
+	cin>>n;
+	int *n_a = new int[n];
+	for(i=0;i<n;i++){
+		cin>>n_a[i];
+	}
+	int m;
+	cin>>m;
+	int *m_a = new int[m];
+	for(i=0;i<m;i++){
+		cin>>m_a[i];
+	}
+	/*
+	for(i=0;i<m;i++){
+		k=0;
+		for(j=0;j<n;j++){
+			if(m_a[i]==n_a[j]){
+				cout<<1<<"\n";
+				k++;
+				break;
+			}
+		}
+		if(k==0) cout<<0<<"\n";
+	}
+	*/
+	int* p;
+	for(i=0;i<m;i++){
+		p=find(n_a,n_a+n,m_a[i]);
+		if(p != n_a+n) cout<<1<<endl;
+		else cout<<0<<endl;
+	}
+	return 0;
+}
