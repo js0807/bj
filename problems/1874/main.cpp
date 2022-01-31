@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm>
+#include <string>
 #include <stack>
 
 using namespace std;
@@ -12,29 +12,45 @@ void init(){
 
 int main(){
 	init();
-	int n,i,j;
+	int n,i,j,flag=0;
 	stack<int> s;
-	
+	string ans="";
+
 	cin>>n;
 	int *a = new int[n];
 	for(i=0;i<n;i++){
 		cin>>a[i];
+		if(a[i]>n) flag=1;
 	}
-
-	int before=0,curr,d;
+	
+	int num=0,before=num;
 	for(i=0;i<n;i++){
-		curr = a[i];
-		d=curr-before;
-		
-		if(d<0){
-			for(j=0;j<-d;j++) cout<<"-\n";
+		if(a[i]-before>0){
+			for(j=num;j<a[i];j++){
+				num++;
+				s.push(num);
+				ans+="+\n";
+			}
+			s.pop();
+			ans+="-\n";
 		} else{
-			for(j=0;j<d;j++) cout<<"+\n";
-			cout<<"-\n";
+			if(s.empty()) break;
+			if(num>=n){
+				if(s.top()!=a[i]) flag=1;
+				s.pop();
+				ans+="-\n";
+			} else{
+				for(j=a[i];j<before;j++){
+					s.pop();
+					ans+="-\n";
+				}
+			}
 		}
-
 		before=a[i];
 	}
+
+	if(flag==0) cout<<ans;
+	else cout<<"NO"<<endl;
 
 	return 0;
 }
