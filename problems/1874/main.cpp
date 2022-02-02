@@ -2,6 +2,8 @@
 #include <string>
 #include <stack>
 
+#define MAX 100000
+
 using namespace std;
 
 void init(){
@@ -10,47 +12,32 @@ void init(){
 	cout.tie(NULL);
 }
 
-int main(){
-	init();
-	int n,i,j,flag=0;
-	stack<int> s;
-	string ans="";
+int arr[MAX];
+stack<int> s;
 
-	cin>>n;
-	int *a = new int[n];
-	for(i=0;i<n;i++){
-		cin>>a[i];
-		if(a[i]>n) flag=1;
-	}
-	
-	int num=0,before=num;
-	for(i=0;i<n;i++){
-		if(a[i]-before>0){
-			for(j=num;j<a[i];j++){
-				num++;
-				s.push(num);
-				ans+="+\n";
-			}
+void check(int n){
+	string ans="";
+	int j=0;
+	for(int i=1;i<=n;i++){
+		s.push(i);
+		ans+="+\n";
+
+		while(!s.empty() && s.top()==arr[j]){
 			s.pop();
 			ans+="-\n";
-		} else{
-			if(s.empty()) break;
-			if(num>=n){
-				if(s.top()!=a[i]) flag=1;
-				s.pop();
-				ans+="-\n";
-			} else{
-				for(j=a[i];j<before;j++){
-					s.pop();
-					ans+="-\n";
-				}
-			}
+			j++;
 		}
-		before=a[i];
 	}
-
-	if(flag==0) cout<<ans;
-	else cout<<"NO"<<endl;
-
+	if(!s.empty()) cout<<"NO\n";
+	else cout<<ans;
+}
+int main(){
+	init();
+	int n;
+	cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>arr[i];
+	}
+	check(n);
 	return 0;
 }

@@ -37,22 +37,32 @@ int main(){
 			}
 		}
 		
+		int rflag=1;
 		for(j=0;j<cmd.size();j++){
-			if(cmd[j]=='R') reverse(d.begin(),d.end());
+			if(cmd[j]=='R') rflag*=-1;
 			else{
 				if(d.empty()){
 					ans="error";
 					break;
 				}
-				d.pop_front();
+				if(rflag==1) d.pop_front();
+				else d.pop_back();
 			}
 		}
 		
 		if(ans!="error" and d.empty()) ans="[]";
 		if(ans!="error"){
-			for(int k:d){
-				ans+=to_string(k);
-				ans+=",";
+			if(rflag==1){
+				for(int k:d){
+					ans+=to_string(k);
+					ans+=",";
+				}
+			} else{
+				deque<int>::reverse_iterator riter;
+				for(riter=d.rbegin();riter!=d.rend();riter++){
+					ans+=to_string(*riter);
+					ans+=",";
+				}
 			}
 		
 			ans[ans.size()-1]=']';

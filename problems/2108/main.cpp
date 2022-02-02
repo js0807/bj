@@ -2,6 +2,7 @@
 #include <string>
 #include <algorithm>
 #include <cmath>
+#include <set>
 
 #define MAX 500000
 
@@ -13,53 +14,44 @@ void init(){
 	cout.tie(NULL);
 }
 
-bool compare(int a, int b){
-	if(a<0 && b<0) return a<b;
-	else return a>b;
-}
-
 int main(){
 	init();
-	int n,i;
+	int n,i,min=4001,max=-4001;
+	double avg=0.0;
+	multiset<int> s;
 	cin>>n;
-	int *a = new int[n];
-	
-	int min=4001,max=-4001;
-	double avg;
+
+	int *arr = new int[n];
 	for(i=0;i<n;i++){
-		cin>>a[i];
+		int tmp;
+		cin>>tmp;
+		arr[i]=tmp;
+		s.insert(tmp);
+		avg+=tmp;
+		if(tmp<min) min=tmp;
+		if(tmp>max) max=tmp;
 	}
 
-	sort(a,a+n);
-
-	for(i=0;i<n;i++){
-		if(a[i]<min) min=a[i];
-		if(a[i]>max) max=a[i];
-		
-		avg+=a[i];
-	}
+	sort(arr,arr+n);
 	
-	int mid=a[n/2];
-	int range=max-min;
-	
-	sort(a,a+n,compare);
-	int most,freq,cnt=1;
-	for(i=0;i<n;i++){
-		freq=1;
-		for(int j=i+1;j<n;j++){
-			if(a[i]==a[j]) freq+=1;
-			if(freq>=cnt){
-				most=a[i];
-				cnt=freq;
-			}
-			if(a[i]!=a[j]) break;
+	int most,cnt=0,same=0,before=-4001;
+	for(auto k:s){
+		if(before==k) continue;
+		if(cnt<s.count(k)){
+			cnt=s.count(k);
+			most=k;
+			same=0;
+		} else if(cnt==s.count(k) and same==0){
+			same++;
+			most=k;
 		}
+		before=k;
 	}
 
 	cout<<floor(avg/n+0.5)<<endl;
-	cout<<mid<<endl;
+	cout<<arr[n/2]<<endl;
 	cout<<most<<endl;
-	cout<<range<<endl;
-
+	cout<<max-min<<endl;
+	
 	return 0;
 }
