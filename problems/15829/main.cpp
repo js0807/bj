@@ -13,12 +13,15 @@ void init(){
 int main(){
 	init();
 	int n,i;
-	long long unsigned int hash=0;
+	unsigned long long int hash=0;
+	unsigned long long int mul=1;
+	unsigned long long int m = 1234567891;
 	cin>>n;
 	for(i=0;i<n;i++){
 		char c;
 		cin>>c;
-		hash+=(int)(c-96)*pow(31,i);
+		hash=(hash+(c-96)*mul)%m;
+		mul=(mul*31)%m;
 	}
 	cout<<hash<<endl;
 

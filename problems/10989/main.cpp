@@ -1,5 +1,7 @@
 #include <iostream>
 
+#define MAX 10000
+
 using namespace std;
 
 void init(){
@@ -8,38 +10,28 @@ void init(){
 	cout.tie(NULL);
 }
 
-void cSort(int *a,int max, int n){
-	int *ca = new int[max+1];
-	int *sorted = new int[n+1];
-
-	for(int i=0;i<n;i++){
-		ca[a[i]]++;
-	}
-
-	for(int i=1;i<max;i++){
-		ca[i+1]+=ca[i];
-	}  
-
-	for(int i=0;i<n;i++){
-		sorted[ca[a[i]]--]=a[i];
-	}
-
-	for(int i=1;i<=n;i++){
-		cout<<sorted[i]<<"\n";
-	}
-}
+int ca[MAX+1];
 
 int main(){
 	init();
-	int n,max=0;
+	int n,num,max=0;
 	cin>>n;
-	int *a = new int[n];
+	
 	for(int i=0;i<n;i++){
-		cin>>a[i];
-		if(a[i]>max) max=a[i];
+		cin>>num;
+		ca[num]++;
+		if(num>max) max=num;
 	}
 	
-	cSort(a,max,n);
+	int i=1;
+	while(i<=max){
+		if(ca[i]<=0){
+			i++;
+			continue;
+		}
+		cout<<i<<"\n";
+		ca[i]--;
+	}
 
 	return 0;
 }
