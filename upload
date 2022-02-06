@@ -1,0 +1,4 @@
+git add *
+git commit -m $1
+token=$(echo ../settings/github_token.txt)
+git push origin main < token
