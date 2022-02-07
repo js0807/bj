@@ -1,0 +1,6 @@
+think about these componens
+- input or delete blocks
+ - using mid value to select method
+  - diff with max,min
+ - num of blocks in the bag
+ - lowest cost, highest block height

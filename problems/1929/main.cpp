@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int a[MAX];
+bool a[MAX+1];
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -13,24 +13,18 @@ void init(){
 	cout.tie(NULL);
 }
 
-void sieve(){
-	int i,j;
-	for(i=2;i<MAX;i++){
-		if(a[i-1]==0){
-			for(j=i+1;j<sqrt(MAX);j++){
-				if(j%i==0) a[j-1]++;
-			}
-		}
-	}
-}
-
 int main(){
 	init();
-	sieve();
-	int m,n;
+	a[0]=1; a[1]=1;
+	long long int m,n,i,j;
 	cin>>m>>n;
-	for(int i=m;i<=n;i++){
-		if(a[i-1]==0) cout<<i<<"\n";
+	for(i=2;i<=sqrt(MAX);i++){
+		for(j=2;i*j<=MAX;j++){
+			a[i*j]=true;
+		}
+	}
+	for(i=m;i<=n;i++){
+		if(!a[i]) cout<<i<<'\n';
 	}
 
 	return 0;

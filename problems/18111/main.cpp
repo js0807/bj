@@ -13,37 +13,44 @@ void init(){
 }
 
 int arr[MAX][MAX];
+int i,j,n,m,b,cost;
 
-void one(int *b, int *cost){
-	if(*b>0){
-
-	} else{
-
-	}
-	*cost+=2;
+void one(){
+	
+	b++;
+	cost+=2;
 }
 
-void two(int *b, int *cost){
-	if(*b>0){
-		
-	} else{
-
-	}
-	*cost+=1;
+void two(){
+	
+	b--;
+	cost+=1;
 }
 
 int main(){
 	init();
-	int n,m,b,cost=0;
+	int d=0,min=257,max=0,sum=0;
 	cin>>n>>m>>b;
 	
-	for(int i=0;i<n;i++){
-		for(int j=0;j<m;j++){
+	for(i=0;i<n;i++){
+		for(j=0;j<m;j++){
 			cin>>arr[i][j];
+			if(arr[i][j]>max) max=arr[i][j];
+			if(arr[i][j]<min) min=arr[i][j];
+			sum+=arr[i][j];
 		}
 	}
 
+	sum/=n*m;
+	if((max-sum)>(sum-min)) d=1;
 
+	while(true){
+		if(d){
+			
+		} else{
+
+		}
+	}
 	
 	return 0;
 }
