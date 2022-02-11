@@ -11,25 +11,30 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[40];
-int zcnt,ocnt;
+int dpz[42]={1,0,};
+int dpo[42]={0,1,};
 
-int fibo(int n){
-	if(dp[n]!=0) return dp[n];
-	dp[n]=fibo(n-1)+fibo(n-2);
-	return dp[n];
+int fiboz(int n){
+	if(n==1) return 0;
+	if(dpz[n]!=0) return dpz[n];
+	dpz[n]=fiboz(n-1)+fiboz(n-2);
+	return dpz[n];
+}
+
+int fiboo(int n){
+	if(n==0) return 0;
+	if(dpo[n]!=0) return dpo[n];
+	dpo[n]=fiboo(n-1)+fiboo(n-2);
+	return dpo[n];
 }
 
 int main(){
 	init();
-	dp[0]=1; dp[1]=1;
 	int t,n,ans;
 	cin>>t;
 	for(int i=0;i<t;i++){
 		cin>>n;
-		ans=fibo(n);
-		cout<<ans<<"\n";
-		zcnt=0;ocnt=0;
+		cout<<fiboz(n)<<' '<<fiboo(n)<<'\n';
 	}
 
 	return 0;
