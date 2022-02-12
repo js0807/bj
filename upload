@@ -1,7 +1,7 @@
 #!/bin/bash
+now=$(date +%y.%m.%d)
+cms=$now-upload
 git add *
-git commit -m $1
-token=$(cat ../settings/github_token.txt)
+git commit -m $cms
+#using credential
 git push origin main
-echo "js0807"
-echo $token
