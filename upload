@@ -1,5 +1,5 @@
 #!/bin/bash
-now=$(date +%y.%m.%d)
+now=$(date +%Y.%m.%d)
 cms=$now-upload
 git add *
 git commit -m $cms
