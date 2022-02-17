@@ -14,28 +14,25 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[MAX+1];
+vector<int> dp(MAX+1);
 
 int main(){
 	init();
 	int n;
 	cin>>n;
-	for(int i=1;i<=sqrt(n);i++){
+	fill_n(dp.begin(),n+1,MAX);
+	dp[0]=0;
+	for(int i=1;i*i<=n;i++){
 		dp[i*i]=1;
 	}
-
-	int num,cnt;
+	
 	for(int i=1;i<=n;i++){
-		if(dp[i]==1){
-			num=1;
-			cnt=1;
-		} else{
-			if(cnt>3){
-				cnt=0;
-				num++;
-			}
-			dp[i]=num+(cnt++);
+		int min=MAX;
+		for(int j=0;j<=i/2;j++){
+			int sum=dp[j]+dp[i-j];
+			if(sum<min) min=sum;
 		}
+		dp[i]=min;
 	}
 	
 	cout<<dp[n]<<endl;

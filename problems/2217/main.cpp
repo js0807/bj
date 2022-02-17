@@ -2,7 +2,6 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -14,19 +13,14 @@ void init(){
 
 int main(){
 	init();
-	int n,cnt=0;
+	int n,i,min=10000;
 	cin>>n;
-	while(true){
-		int tmp=i*i;
-		if(n>=tmp){
-			n-=tmp;
-			cnt++;
-			i=floor(sqrt(n));
-		}
-		if(n==0) break;
+	vector<int> v(n);
+	vector<int> ans;
+	for(i=0;i<n;i++){
+		cin>>v[i];
 	}
-
-	cout<<cnt<<endl;
+	
 
 	return 0;
 }
