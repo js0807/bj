@@ -12,18 +12,16 @@ void init(){
 
 int main(){
 	init();
-	int cnt=0,i=0;
 	string s;
-	cin>>s;
 	string d[8]={"c=","c-","dz=","d-","lj","nj","s=","z="};
+	cin>>s;
+	int i=0;
 	while(i<8){
-		if(s.find(d[i])){
-			s.replace(s.find(d[i]),d[i].length()," ");
-			cnt++;
-		} else{
-			i++;
-		}
+		int pos=s.find(d[i]);
+		if(pos>=0){
+			s.replace(pos,d[i].size(),'!');
+		} else i++;
 	}
-	cout<<cnt<<endl;
+	cout<<s.size()<<endl;
 	return 0;
-}
+
