@@ -23,13 +23,19 @@ int main(){
 	}
 	for(i=0;i<n;i++){
 		cin>>cost[i];
-		if(cost[i]<min){
+		if(cost[i]<min and i!=n-1){
 			min=cost[i];
 			mindex=i;
 		}
 	}
+	
+	// min cost after road
+	for(int i=mindex;i<n-1;i++){
+		co+=road[i];
+	}
+	co*=cost[mindex];
 
-
+	cout<<mindex<<' '<<co<<endl;
 	
 	return 0;
 }
