@@ -8,36 +8,57 @@
 
 using namespace std;
 
-int graph[MAX+1][MAX+1],ans=0;
+int graph[MAX+1][MAX+1],n,m;
 bool visited[MAX+1][MAX+1];
 
-void bfs(int n,int m){
+bool check(int x, int y){
+	if(x<1 or y<1 or x>n or y>m) return false;
+	return true;
+}
+
+/*
+void show(){
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			printf("%d",graph[i][j]);
+		}
+		printf("\n");
+	}
+	printf("=========================\n");
+}
+*/
+
+void bfs(){
+	int rx[4]={1,-1,0,0};
+	int ry[4]={0,0,1,-1};
 	queue<pair<int,int>> q;
 	q.push({1,1});
+	visited[1][1]=true;
 	while(!q.empty()){
 		int x = q.front().first;
 		int y = q.front().second;
 		q.pop();
-		if(graph[x][y]){
-			graph[x][y]=0;
-			if(y!=m) q.push({x,y+1});
-			if(x!=n) q.push({x+1,y});
-			if(x!=1) q.push({x-1,y});
-			if(y!=1) q.push({x,y-1});
-			ans+=1;
+		for(int i=0;i<4;i++){
+			int nx=x+rx[i];
+			int ny=y+ry[i];
+			if(!visited[nx][ny] and check(nx,ny) and graph[nx][ny]){
+				visited[nx][ny]=true;
+				q.push({nx,ny});
+				graph[nx][ny]+=graph[x][y];
+				show();
+			}
 		}
 	}
 }
 
 int main(){
-	int n,m;
 	cin>>n>>m;
 	for(int i=1;i<=n;i++){
 		for(int j=1;j<=m;j++){
 			scanf("%1d",&graph[i][j]);
 		}
 	}
-	bfs(n,m);
-	printf("%d\n",ans);
+	bfs();
+	printf("%d\n",graph[n][m]);
 	return 0;
 }
