@@ -8,7 +8,7 @@
 using namespace std;
 
 int graph[MAX+1][MAX+1];
-int n,b=0,w=0;
+int n,before,b=0,w=0;
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -16,16 +16,15 @@ void init(){
 	cout.tie(NULL);
 }
 
-void dq(int x, int y, int size){ 
-	int start=graph[x][y];
-	for(int i=x;i<=x+size-1;i++){
-		for(int j=y;j<=y+size-1;j++){
+void dq(int si,int ei,int sj,int ej){ 
+	int start=graph[si][sj];
+	for(int i=si;i<=ei;i++){
+		for(int j=sj;j<=ej;j++){
 			if(graph[i][j]!=start){
-				int r=size/2;
-				dq(x,y,r);
-				dq(x+r,y,r);
-				dq(x,y+r,r);
-				dq(x+r,y+r,r);
+				dq(si,ei/2,sj,ej/2); // 1 4 1 4 
+				dq(si,ei/2,ej/2+1,ej); // 1 4 5 8
+				dq(ei/2+1,ei,sj,ej/2); // 5 8 1 4
+				dq(ei/2+1,ei,ej/2+1,ej); // 5 8 5 8
 				return;
 			}
 		}
@@ -42,7 +41,7 @@ int main(){
 			cin>>graph[i][j];
 		}
 	}
-	dq(1,1,n);
+	dq(1,n,1,n);
 	cout<<w<<endl;
 	cout<<b<<endl;
 	return 0;
