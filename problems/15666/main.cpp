@@ -18,17 +18,16 @@ void init(){
 	cout.tie(NULL);
 }
 
-void backtrack(int cnt){
+void backtrack(int x, int cnt){
 	if(cnt==m){
 		for(auto k:v) cout<<k<<' ';
 		cout<<'\n';
 		return;
 	}
-	for(int i=1;i<=arr.size();i++){ 
-		if(visited[i]) continue;
+	for(int i=x;i<=arr.size();i++){ 
 		visited[i]=true;
 		v.push_back(arr[i-1]);
-		backtrack(cnt+1);
+		backtrack(i,cnt+1);
 		v.pop_back();
 		visited[i]=false;
 	}
@@ -44,6 +43,7 @@ int main(){
 	}
 	sort(arr.begin(),arr.end());
 	arr.erase(unique(arr.begin(),arr.end()),arr.end());
-	backtrack(0);
+	backtrack(1,0);
+
 	return 0;
 }
