@@ -17,7 +17,7 @@ int main(){
 	int t;
 	cin>>t;
 	for(int i=0;i<t;i++){
-		int n;
+		int n,cnt=0;
 		map<string,string> m;
 		cin>>n;
 		for(int j=0;j<n;j++){
@@ -25,6 +25,10 @@ int main(){
 			cin>>a>>c;
 			m.insert({a,c});
 		}
+		for(auto k:m){
+			
+		}
+		cout<<cnt<<'\n';
 	}
 	return 0;
 }
