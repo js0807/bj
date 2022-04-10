@@ -11,24 +11,24 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[300];
-
-int step(int s1, int s2){
-
-}
+int dp[301];
+vector<int> v;
 
 int main(){
 	init();
-	int n,i,ans=0;
+	int n,i;
 	cin>>n;
-	vector<int> v(n);
 	for(i=0;i<n;i++){
-		cin>>v[i];
+		int a; cin>>a;
+		v.push_back(a);
 	}
-	
-	i=0;
-	while(true){
-		
+	dp[1]=v[0]; dp[2]=v[0]+v[1];
+	bool flag=true;
+	for(int i=3;i<=n;i++){
+		dp[i]=max({dp[i-1],dp[i-2]})+v[i-1];
 	}
+
+	cout<<dp[n]<<endl;
+
 	return 0;
 }

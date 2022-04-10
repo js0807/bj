@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -19,9 +20,14 @@ int count(int n){
 	if(n==1) return 0;
 	if(dp[n]!=0) return dp[n];
 	else{
-		if(n%3==0) dp[n]=count(n/3)+1;
-		else if(n%2==0) dp[n]=count(n/2)+1;
-		else dp[n]=count(n-1)+1;
+		int a,b;
+		if(n%3==0) a=count(n/3);
+		else a=INT32_MAX;
+
+		if(n%2==0) b=count(n/2);
+		else b=INT32_MAX;
+		
+		dp[n]=min({count(n-1),b,a})+1;
 		return dp[n];
 	}
 }

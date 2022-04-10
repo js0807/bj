@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -12,7 +13,7 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[50001]={0,1,1,1,1,};
+int dp[50001];
 
 /*
 // top-down greedy
@@ -26,17 +27,17 @@ int mini(int n){
 
 int main(){
 	init();
-	int n;
+	int n,i,j;
 	cin>>n;
-	for(int i=1;i*i<=n;i++) dp[i*i]=1;
+	for(i=1;i*i<=n;i++) dp[i*i]=1;
 	
-	for(int i=1;i<=n;i++){
-		if(dp[i]!=0) continue;
-		vector<int> v;
-		for(int j=1;j<=n/2;j++){
-			v.push_back(j);
+	for(i=1;i<=n;i++){
+		int minn=INT32_MAX;
+		for(j=1;j*j<=i;j++){
+			int tmp=i-j*j;
+			minn=min(minn,dp[tmp]);
 		}
-		dp[i]=*min_element(v.begin(),v.end());
+		dp[i]=minn+1;
 	}
 
 	cout<<dp[n]<<endl;
