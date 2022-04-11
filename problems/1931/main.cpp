@@ -24,21 +24,23 @@ bool check(bool *t,int st,int et){
 
 int main(){
 	init();
-	int n,cnt=0,max=0;
+	int n,cnt=0,maxi=0;
 	cin>>n;
 	for(int i=0;i<n;i++){
 		int s,e;
 		cin>>s>>e;
-		if(e>max) max=e;
+		if(e>maxi) maxi=e;
 		v.push_back({e-s,{s,e}});
 	}
 	
 	stable_sort(v.begin(),v.end());
 	
-	bool t[max]={false,};
+	bool *t = new bool[maxi];
+	fill_n(t, maxi, false);
 	for(auto k:v){
 		int st=k.second.first,et=k.second.second;
 		if(check(t,st,et)){
+			cout<<st<<' '<<et<<'\n';
 			for(int i=st;i<=et;i++){
 				t[i]=true;
 			}
