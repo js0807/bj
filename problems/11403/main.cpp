@@ -7,8 +7,7 @@
 
 using namespace std;
 
-int n;
-bool graph[MAX+1][MAX+1];
+int n,t,graph[MAX+1][MAX+1],visited[MAX+1][MAX+1];
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -16,31 +15,35 @@ void init(){
 	cout.tie(NULL);
 }
 
-bool dfs(int base, int next){
-	if(base==next) return true;
-	else{
-		for(int i=1;i<=n;i++){
-			dfs(base,i);
+void dfs(int x,int d){
+	if(d==n) return;
+	for(int i=x;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(graph[i][j] and !visited[t][j]){
+				visited[t][j]=1;
+				dfs(j,d+1);
+			}
 		}
+		if(d==0) t++;
 	}
 }
 
 int main(){
 	init();
+	int i,j;
 	cin>>n;
-	for(int i=1;i<=n;i++){
-		for(int j=1;j<=n;j++){
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
 			cin>>graph[i][j];
 		}
 	}
-	for(int i=1;i<=n;i++){
-		for(int j=1;j<=n;j++){
-			int flag;
-			if(dfs(i,j)) flag=1;
-			else flag=0;
-			cout<<flag<<' ';
+	dfs(0,0);
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			cout<<visited[i][j]<<' ';
 		}
 		cout<<'\n';
 	}
+
 	return 0;
 }
