@@ -11,25 +11,13 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[301];
-vector<int> v;
-
 int main(){
 	init();
-	int n,i;
+	int n;
+	long long dp[1001]={0,10,55,220,};
 	cin>>n;
-	for(i=0;i<n;i++){
-		int a; cin>>a;
-		v.push_back(a);
-	}
-	dp[1]=v[0]; dp[2]=v[0]+v[1];
-	bool flag=true;
 	for(int i=3;i<=n;i++){
-		if(dp[i-1]!=0 and dp[i-2]!=0) continue;
-		dp[i]=max({dp[i-1],dp[i-2]})+v[i-1];
+		
 	}
-
-	cout<<dp[n]<<endl;
-
 	return 0;
 }
