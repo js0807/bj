@@ -7,6 +7,7 @@ using namespace std;
 
 int n,cnt=0;
 vector<int> v[101];
+bool visited[101],flag;
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -14,8 +15,19 @@ void init(){
 	cout.tie(NULL);
 }
 
-dfs(int x,int y){
-	
+void dfs(int x,int y,int d){
+	if(x==y){
+	    	cout<<d<<endl;
+		flag=true;
+		return;
+	}
+	visited[x]=true;
+	for(auto k:v[x]){
+		if(!visited[k] and !flag){
+			dfs(k,y,d+1);
+			cnt++;
+		}	
+	}
 }
 
 int main(){
@@ -28,7 +40,7 @@ int main(){
 		v[a].push_back(b);
 		v[b].push_back(a);
 	}
-	dfs(x,y);
-	cout<<cnt<<endl;
+	dfs(x,y,0);
+	if(!flag) cout<<-1<<endl;
 	return 0;
 }
