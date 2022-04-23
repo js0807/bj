@@ -13,12 +13,16 @@ void init(){
 
 int main(){
 	init();
-	int n,i,min=10000;
-	cin>>n;
-	for(i=0;i<n;i++){
+	int ans[6];
+	int piece[6]={1,1,2,2,2,8};
+	for(int i=0;i<6;i++){
 		int a; cin>>a;
-		if(a<min) min=a;
+		ans[i]=piece[i]-a;
 	}
-	cout<<min*n<<endl;
+	for(int i=0;i<6;i++){
+		cout<<ans[i]<<' ';
+	}
+	cout<<endl;
+
 	return 0;
 }

@@ -24,7 +24,7 @@ int main(){
 		}
 		v[i].push_back(tmp);
 	}
-	sort(v,v+n,greater<>());
+	sort(v,v+n,greater<vector<int>>());
 	int rank=0;
 	int before[3]={1000001,1000001,1000001};
 	for(int i=0;i<n;i++){	
