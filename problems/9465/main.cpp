@@ -13,20 +13,17 @@ void init(){
 
 int main(){
 	init();
-	int n,div5,div25,div125;
-	cin>>n;
-	div5=n/5;
-	div25=n/25;
-	div125=n/125;
-	/* time out
-	for(int i=n-1;i>=2;i--){
-		n*=i;
+	int t;
+	for(int i=0;i<t;i++){
+		int n;
+		cin>>n;
+		int dp[2][n];
+		for(int j=0;j<2;j++){
+			for(int k=0;k<n;k++){
+				cin>>dp[i][j];
+			}
+		}
 	}
-	while(n%10==0){
-		n/=10;
-		cnt++;
-	}
-	*/
-	cout<<div5+div25+div125<<endl;
+
 	return 0;
 }

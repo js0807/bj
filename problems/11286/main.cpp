@@ -18,10 +18,18 @@ void heapify(int *arr,int i){
 	int maxi=i;
 	int left=i*2;
 	int right=i*2+1;
-
-	if(left<=s and arr[i]>arr[left]) maxi=left;
-	if(right<=s and arr[maxi]>arr[right]) maxi=right;
 	
+	if(left<=s and abs(arr[i])>=abs(arr[left])){
+		if(abs(arr[i])==abs(arr[left])){
+			if(arr[i]>arr[left]) maxi=left;
+		} else maxi=left;
+	}
+	if(right<=s and abs(arr[maxi])>=abs(arr[right])){
+		if(abs(arr[maxi])==abs(arr[right])){
+			if(arr[maxi]>arr[right]) maxi=right;
+		} else maxi=right;
+	}
+
 	if(maxi!=i){
 		swap(arr[i],arr[maxi]);
 		heapify(arr,maxi);
@@ -40,8 +48,10 @@ int extract(int *arr){
 void decrease(int *arr,int i,int val){
 	if(arr[i]<val) return;
 	arr[i]=val;
-	while(i>1 and arr[i/2]>arr[i]){
-		swap(arr[i/2],arr[i]);
+	while(i>1 and abs(arr[i/2])>=abs(arr[i])){
+		if(abs(arr[i/2])==abs(arr[i])){
+			if(arr[i/2]>arr[i]) swap(arr[i/2],arr[i]);
+		} else swap(arr[i/2],arr[i]);
 		i/=2;
 	}
 }
