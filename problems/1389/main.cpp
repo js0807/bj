@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -7,10 +8,7 @@
 
 using namespace std;
 
-int n,m;
-vector<int> graph[MAX+1];
-bool visited[MAX];
-int sum_b=0;
+int graph[MAX+1][MAX+1];
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -18,38 +16,35 @@ void init(){
 	cout.tie(NULL);
 }
 
-void dfs(int x){
-	visited[x]=true;
-	for(auto k:graph[x]){
-		if(!visited[k]){
-			dfs(k);
-		} 
-	}
-}
-
-int dfsum(int x){
-	int sum=0;
-	for(int i=1;i<=n;i++){
-		dfs(i);
-	}
-	return sum;
-}
-
 int main(){
 	init();
-	int min;
+	int n,m;
 	cin>>n>>m;
-	min=n;
 	for(int i=0;i<m;i++){
 		int a,b;
 		cin>>a>>b;
-		graph[a].push_back(b);
-		graph[b].push_back(a);
+		graph[a][b]=1;
+		graph[b][a]=1;
 	}
-	for(int i=n;i>=1;i--){
-		int result=dfsum(i);
-		if(result<min) min=i;
+	
+	int *result = new int[n+1];
+	fill_n(result,n+1,0);
+	for(int k=1;k<=n;k++){
+		for(int i=1;i<=n;i++){
+			for(int j=1;j<=n;j++){
+				if(graph[i][j] or (graph[i][k] and graph[k][j])) result[k]++;
+			}
+		}
 	}
-	cout<<min<<endl;
+	
+	int maxi=-1,ans;
+	for(int k=1;k<=n;k++){
+		if(result[k]>maxi){
+			maxi=result[k];
+			ans=k;
+		}
+	}
+
+	cout<<ans<<endl;
 	return 0;
 }
