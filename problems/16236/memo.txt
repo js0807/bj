@@ -1,0 +1,6 @@
+p msize
+
+display q
+display {n,n_size,range,n_cnt}
+display {x,y,t,graph[x][y]}
+display {nx,ny}

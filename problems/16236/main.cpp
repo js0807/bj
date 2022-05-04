@@ -37,13 +37,12 @@ int check_cnt(){
 }
 
 bool check(int x, int y){
-	if(graph[x][y]<=n_size){
+	if(graph[x][y]<=n_size and graph[x][y]!=0){
 		if(graph[x][y]==n_size){
 			n_cnt++;
-
 			if(n_cnt==n_size){
-				n_size++; 
-				if(n_size==range+1 and n_cnt==cnt[range]) return true;
+				n_size++;
+				if(n_size==range and n_cnt==cnt[range-1]) return true;
 				n_cnt=0;
 			}
 		}	
@@ -77,7 +76,7 @@ void bfs(int sx, int sy){
 int main(){
 	init();
 	cin>>n;
-	int x,y;
+	int x,y,maxi=0;
 	for(int i=1;i<=n;i++){
 		for(int j=1;j<=n;j++){
 			cin>>graph[i][j];
@@ -85,6 +84,7 @@ int main(){
 				x=i,y=j;
 				graph[i][j]=0;
 			}
+			if(graph[i][j]>maxi) maxi=graph[i][j];
 			cnt[graph[i][j]]++;
 		}
 	}
