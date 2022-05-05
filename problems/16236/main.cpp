@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int n,n_size=1,ans=0,n_cnt=0,range;
+int n,n_size=1,ans,n_cnt,range,total;
 int graph[MAX+1][MAX+1],cnt[7];
 bool visited[MAX+1][MAX+1];
 queue<pair<pair<int,int>,int>> q;
@@ -38,14 +38,15 @@ int check_cnt(){
 
 bool check(int x, int y){
 	if(graph[x][y]<=n_size and graph[x][y]!=0){
+		total--;
+		if(total==0) return true;
 		if(graph[x][y]==n_size){
 			n_cnt++;
 			if(n_cnt==n_size){
 				n_size++;
-				if(n_size==range and n_cnt==cnt[range-1]) return true;
 				n_cnt=0;
 			}
-		}	
+		}
 		graph[x][y]=0;
 		clear();
 	}
@@ -53,8 +54,8 @@ bool check(int x, int y){
 }
 
 void bfs(int sx, int sy){
-	int rx[4]={-1,1,0,0};
-	int ry[4]={0,0,-1,1};
+	int rx[4]={-1,0,1,0};
+	int ry[4]={0,-1,0,1};
 	q.push({{sx,sy},0});
 	visited[sx][sy]=true;
 	while(!q.empty()){
@@ -89,6 +90,9 @@ int main(){
 		}
 	}
 	range=check_cnt();
+	for(int i=1;i<=range;i++){
+		total+=cnt[i];
+	}
 	bfs(x,y);
 	cout<<ans<<endl;
 	return 0;
