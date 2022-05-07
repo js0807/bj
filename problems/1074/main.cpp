@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int n,r,c,cnt=0;
+int cnt,r,c;
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -14,6 +14,7 @@ void init(){
 	cout.tie(NULL);
 }
 
+/*
 void dq(int x,int y,int size){
 	for(int i=x;i<x+size;i++){
 		for(int j=y;j<y+size;j++){
@@ -35,10 +36,37 @@ void dq(int x,int y,int size){
 		}
 	}
 }
+*/
+
+void dq(int x,int y,int size,int n){
+	if(size==0) return;
+	int re=size/2,mul=pow(2,n-2);
+	if(size==1) mul=1;
+	if(x>=re){
+		if(y>=re){
+			x=re; y=re;
+			cnt+=size*mul*3;
+		} else{
+			x=re; y=re/2;
+			cnt+=size*mul*2;
+		}
+	} else{
+		if(y>=re){
+			x=re/2; y=re;
+			cnt+=size*mul;
+		} else{
+			x=re/2; y=re/2;
+		}
+	}
+	if(x==r and y==c) return;
+	dq(x,y,re,n-1);
+}
 
 int main(){
 	init();
+	int n;
 	cin>>n>>r>>c;
-	dq(0,0,pow(2,n));
+	dq(r,c,pow(2,n),n);
+	cout<<cnt<<endl;
 	return 0;
 }
