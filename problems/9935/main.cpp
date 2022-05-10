@@ -6,22 +6,47 @@
 
 using namespace std;
 
+stack<char> stk;
+
 void init(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 }
 
+string top_n(int n){
+	string tmp="";
+	for(int i=0;i<n;i++){
+		char t=stk.top();
+		tmp+=t;
+		stk.pop();
+	}
+	for(int i=n-1;i>=0;i--){
+		stk.push(tmp[i]);
+	}
+	reverse(tmp.begin(),tmp.end());
+	return tmp;
+}
+
+void pop_n(int n){
+	for(int i=0;i<n;i++){
+		stk.pop();
+	}
+}
+
 int main(){
 	init();
-	stack<char> stk;
+	int cnt=0,siize;
 	string s,w,ans="";
-	bool flag=false;
 	cin>>s>>w;
-	stk.push('!');
+	siize=w.size();
 	for(int i=0;i<s.size();i++){
-		if(s[i]=='4' and stk.top()=='C') stk.pop();
-		else stk.push(s[i]);
+		stk.push(s[i]);
+		cnt++;
+		if(cnt>=siize and top_n(siize)==w){
+			pop_n(w.size());
+			cnt-=siize;
+		}
 	}
 	if(stk.size()<=1) cout<<"FRULA\n";
 	else{
@@ -29,7 +54,7 @@ int main(){
 			ans+=stk.top();
 			stk.pop();
 		}
-		for(int i=ans.size()-2;i>=0;i--){
+		for(int i=ans.size()-1;i>=0;i--){
 			cout<<ans[i];
 		} cout<<'\n';
 	}
