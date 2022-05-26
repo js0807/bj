@@ -3,9 +3,11 @@
 #include <algorithm>
 #include <vector>
 
-#define MAX 100000
+#define MAX 1000000
 
 using namespace std;
+
+int dp[MAX+1]={0,1,2,2,};
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -13,18 +15,12 @@ void init(){
 	cout.tie(NULL);
 }
 
-int dp[MAX+1],n;
-
 int main(){
 	init();
+	int n;
 	cin>>n;
-	fill_n(dp,n+1,5);
-	dp[0]=0; dp[1]=1; dp[2]=2,dp[3]=3;
 	for(int i=4;i<=n;i++){
-		for(int j=1;j*j<=n;j++){
-			int k=i-j*j;
-			dp[i]=min(dp[i],dp[k]+1  );
-		}
+		dp[i]=(dp[i-1]+dp[i-2])%15746;
 	}
 	cout<<dp[n]<<endl;
 	return 0;
