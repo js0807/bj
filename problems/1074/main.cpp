@@ -68,8 +68,8 @@ double cnt;
 void dq(int size,int num){
 	if(size==1) return;
 	double mul=pow(2,num-2);
-	if(r>=size/2){
-		if(c>=size/2){
+	if(r>=nx+size/2){
+		if(c>=ny+size/2){
 			nx+=size/2; ny+=size/2;
 			cnt+=size*mul*3;
 		} else{
@@ -77,7 +77,7 @@ void dq(int size,int num){
 			cnt+=size*mul*2;
 		}
 	} else{
-		if(c>=size/2){
+		if(c>=ny+size/2){
 			ny+=size/2;
 			cnt+=size*mul;
 		}

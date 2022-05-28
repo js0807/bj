@@ -22,10 +22,9 @@ int main(){
 		int a; cin>>a;
 		v.push_back(a);
 	}
-	dp[1]=v[0]; dp[2]=v[0]+v[1];
+	dp[1]=v[0]; dp[2]=v[1];
 	bool flag=true;
 	for(int i=3;i<=n;i++){
-		if(dp[i-1]!=0 and dp[i-2]!=0) continue;
 		dp[i]=max({dp[i-1],dp[i-2]})+v[i-1];
 	}
 
