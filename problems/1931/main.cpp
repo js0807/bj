@@ -7,7 +7,7 @@
 
 using namespace std;
 
-vector<pair<int,pair<int,int>>> v;
+vector<pair<pair<int,int>,int>> v;
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -30,17 +30,32 @@ int main(){
 		int s,e;
 		cin>>s>>e;
 		if(e>maxi) maxi=e;
-		v.push_back({e-s,{s,e}});
+		v.push_back({{e,s},e-s});
 	}
 	
-	stable_sort(v.begin(),v.end());
+	sort(v.begin(),v.end());
 	
+	/*
+	cout<<"sort by e-s\n";
+	for(auto k:v){
+		cout<<k.second.first<<' '<<k.second.second<<" / ";
+	}
+	
+	cout<<"\nsort by s\n";
+	for(auto k:v2){
+		cout<<k.first.first<<' '<<k.first.second<<" / ";
+	}
+	
+	cout<<"\nsort by e\n";
+	for(auto k:v3){
+		cout<<k.first.second<<' '<<k.first.first<<" / ";
+	}
+	*/
 	bool *t = new bool[maxi];
 	fill_n(t, maxi, false);
 	for(auto k:v){
-		int st=k.second.first,et=k.second.second;
+		int st=k.first.second,et=k.first.first;
 		if(check(t,st,et)){
-			cout<<st<<' '<<et<<'\n';
 			for(int i=st;i<=et;i++){
 				t[i]=true;
 			}
