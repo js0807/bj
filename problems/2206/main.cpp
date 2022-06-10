@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <utility>
 #include <vector>
 #include <queue>
 
@@ -21,8 +22,8 @@ void init(){
 int bfs(){
 	int rx[4]={-1,1,0,0};
 	int ry[4]={0,0,-1,1};
-	queue<pair<pair<int,int>,bool>> q;
-	q.push({{1,1},false});
+	queue< pair<pair<int,int>,bool> > q;
+	q.push(make_pair(make_pair(1,1),false));
 	visited[1][1]=true;
 	while(!q.empty()){
 		int x=q.front().first.first;
@@ -35,13 +36,13 @@ int bfs(){
 			int ny=y+ry[i];
 			if(visited[nx][ny] or (nx<1 or nx>n or ny<1 or ny>m)) continue;
 			if(graph[nx][ny]==0){
-				if(!flag) q.push({{nx,ny},false});
-				else q.push({{nx,ny},true});
+				if(!flag) q.push(make_pair(make_pair(nx,ny),false));
+				else q.push(make_pair(make_pair(nx,ny),true));
 				cnt[nx][ny]+=cnt[x][y];
 				visited[nx][ny]=true;
 			} else{
 				if(!flag){
-					q.push({{nx,ny},true});
+					q.push(make_pair(make_pair(nx,ny),true));
 					cnt[nx][ny]+=cnt[x][y];
 					visited[nx][ny]=true;
 				}
@@ -59,7 +60,6 @@ int main(){
 			cnt[i][j]=1;
 		}
 	}
-	int ans=bfs();
-	cout<<ans<<endl;
+	cout<<bfs()<<endl;
 	return 0;
 }

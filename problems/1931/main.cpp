@@ -7,7 +7,7 @@
 
 using namespace std;
 
-vector<pair<pair<int,int>,int>> v;
+vector<pair <pair<int,int>,int> > v;
 
 void init(){
 	ios_base::sync_with_stdio(false);
@@ -30,7 +30,7 @@ int main(){
 		int s,e;
 		cin>>s>>e;
 		if(e>maxi) maxi=e;
-		v.push_back({{e,s},e-s});
+		v.push_back(make_pair(make_pair(e,s),e-s));
 	}
 	
 	sort(v.begin(),v.end());
