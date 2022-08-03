@@ -14,8 +14,18 @@ void init(){
 	cout.tie(NULL);
 }
 
+int fpow(int c,int n){
+    if(n==1) return c;
+    else{
+        int x=fpow(c,n/2);
+        if(n%2==0) return x*x;
+        else return x*x*c;
+    }
+}
+
 int main(){
 	init();
 	cin>>a>>b>>c;
-	return 0;
+	cout<<fpow(a,b)%c<<endl;
+    return 0;
 }

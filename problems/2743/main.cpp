@@ -13,7 +13,9 @@ void init(){
 
 int main(){
     init();
-    int n;
+    string s;
+    cin>>s;
+    cout<<s.length()<<'\n';
 
     return 0;
 }

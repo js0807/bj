@@ -13,7 +13,9 @@ void init(){
 
 int main(){
     init();
-    int n;
+    long long a,b;
+    cin>>a>>b;
+    cout<<abs(a-b)<<endl;
 
     return 0;
 }

@@ -6,14 +6,13 @@
 using namespace std;
 
 void init(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 }
 
 int main(){
-    init();
-    int n;
-
-    return 0;
+	init();
+    cout<<"2022-07-21\n";
+	return 0;
 }

@@ -8,9 +8,8 @@
 
 using namespace std;
 
-int n,m,r,sum=0;
-int scores[MAX+1],result[MAX+1];
-vector<pair<int,int>> g[MAX+1];
+int n,m,r;
+int g[MAX+1][MAX+1],bg[MAX+1][MAX+1],cost[MAX+1];
 bool visited[MAX+1];
 
 void init(){
@@ -19,61 +18,58 @@ void init(){
 	cout.tie(NULL);
 }
 
-/*
-int bfs(int x){
-	int sum=0;
-	queue<int> q;
-	q.push(x);
-	visited[x]=true;
-	sum+=scores[x];
-	while(!q.empty()){
-		int tmp = q.front();
-		q.pop();
-		for(auto k:g[tmp]){
-			int nx=k.first;
-			int d=k.second;
-			if(d>r or visited[nx]) continue;
-			q.push(nx);
-			visited[nx]=true;
-			sum+=scores[nx];
-		}
-	}
-	return sum;
+void swap_g(){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            swap(g[i][j],bg[i][j]);       
+        }
+    }
 }
-*/
 
-void dfs(int x,int d){
-	if(d>r or visited[x]) return;
-	sum+=scores[x];
-	visited[x]=true;
-	for(auto k:g[x]){
-		int nx=k.first;
-		int distance=k.second;
-		if(distance>r or visited[nx]) continue;
-		dfs(nx,d+distance);
-	}
+void show_g(){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            cout<<g[i][j]<<' ';
+        }
+        cout<<'\n';
+    }
 }
 
 int main(){
 	init();
 	cin>>n>>m>>r;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            g[i][j]=10001;
+            bg[i][j]=10001;
+        }
+    }
 	for(int i=1;i<=n;i++){
-		cin>>scores[i];
+        cin>>cost[i];
 	}
-	for(int i=1;i<=n-1;i++){
-		int a,b,c;
-		cin>>a>>b>>c;
-		g[a].push_back({b,c});
-		g[b].push_back({a,c});
-	}
-	int maxi=-1;
-	for(int i=1;i<=n;i++){
-		dfs(i,0);
-		result[i]=sum;
-		sum=0;
-		fill_n(visited,n+1,false);
-		if(result[i]>maxi) maxi=result[i];
-	}
-	cout<<maxi<<endl;
+    for(int i=1;i<=r;i++){
+        int x,y,c;
+        cin>>x>>y>>c;
+        g[x][y]=c; g[y][x]=c;
+        bg[x][y]=c; bg[y][x]=c;
+    }
+    for(int k=1;k<=n;k++){
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                g[i][j]=min(bg[i][j],bg[i][k]+bg[k][j]);
+            }
+        }
+        if(k!=n) swap_g();
+    }
+    int *sum = new int[n+1];
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(i==j or g[i][j]<=m) {
+                sum[i]+=cost[j];
+            }
+        }
+    }
+    sort(sum,sum+n+1);
+    cout<<sum[n]<<endl;
 	return 0;
 }
