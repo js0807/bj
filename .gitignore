@@ -6,3 +6,4 @@ main.exe
 .replit
 main.dSYM
 main.dSYM/*
+.DS_Store
